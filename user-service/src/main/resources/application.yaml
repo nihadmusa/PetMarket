@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    username: admin
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/petmarket-db
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  secret: 1234567890123456789012345678901234567890123456789012345678901234
+  expire: 900000
+  expire2: 604800000
+
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+

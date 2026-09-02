@@ -1,0 +1,7 @@
+rootProject.name = 'pet-market'
+
+include 'api-gateway'
+include 'user-service'
+include 'animal-service'
+include 'favorite-service'
+include 'notification-service'

@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="animal-service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="pet-market.animal-service.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.animalservice.AnimalServiceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

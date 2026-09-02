@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: notification-service
+
+  datasource:
+    username: admin
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/petmarket-db
+
+  rabbitmq:
+    password: guest
+    username: guest
+    port: 5672
+    host: localhost
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8084
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+

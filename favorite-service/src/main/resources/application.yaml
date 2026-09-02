@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: favorite-service
+
+  datasource:
+    username: admin
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/petmarket-db
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 8083
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+

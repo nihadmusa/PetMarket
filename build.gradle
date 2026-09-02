@@ -1,0 +1,9 @@
+//tasks.register('runAll') {
+//	group = 'application'
+//	description = 'Runs all microservices in parallel'
+//	dependsOn ':api-gateway:bootRun',
+//			':user-service:bootRun',
+//			':animal-service:bootRun',
+//			':favorite-service:bootRun',
+//			':notification-service:bootRun'
+//}

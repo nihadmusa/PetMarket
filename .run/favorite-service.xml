@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="favorite-service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="pet-market.favorite-service.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.favoriteservice.FavoriteServiceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

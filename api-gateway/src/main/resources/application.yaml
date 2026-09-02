@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+    urls:
+      - name: User Service
+        url: /v3/api-docs/user
+      - name: Animal Service
+        url: /v3/api-docs/animal
+      - name: Favorite Service
+        url: /v3/api-docs/favorite
+      - name: Notification Service
+        url: /v3/api-docs/notification
+    urls-primary-name: User Service
+
+jwt:
+  secret: 1234567890123456789012345678901234567890123456789012345678901234
+
+services:
+  auth:
+    url: http://localhost:8081
+
+  animal:
+    url: http://localhost:8082
+
+  favorite:
+    url: http://localhost:8083
+
+  notification:
+    url: http://localhost:8084
+
+
