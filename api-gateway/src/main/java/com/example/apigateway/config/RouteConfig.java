@@ -42,6 +42,12 @@ public class RouteConfig {
                                 .uri(AUTH_URL)
                 )
                 .route(
+                        "user-write", r -> r
+                                .path("/api/v1/user/**")
+                                .filters(f->f.filter(filter))
+                                .uri(AUTH_URL)
+                )
+                .route(
                         "animal-read", r -> r
                                 .path("/api/v1/animal/**")
                                 .and().method(HttpMethod.GET)
