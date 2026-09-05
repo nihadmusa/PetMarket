@@ -1,6 +1,7 @@
 package com.example.animalservice.controller;
 
 import com.example.animalservice.dto.request.AnimalRequestDto;
+import com.example.animalservice.dto.request.AnimalUpdateDto;
 import com.example.animalservice.dto.response.AnimalPageResponse;
 import com.example.animalservice.dto.response.AnimalResponseDto;
 import com.example.animalservice.exception.LoginRequiredException;
@@ -69,7 +70,7 @@ public class AnimalController {
     public ResponseEntity<AnimalResponseDto> updateAnimal(
             @PathVariable UUID id,
             @RequestHeader(value = "User-Id", required = false) UUID userId,
-            @RequestBody @Valid AnimalRequestDto dto) {
+            @RequestBody @Valid AnimalUpdateDto dto) {
         if (userId == null) {
             throw new LoginRequiredException();
         }

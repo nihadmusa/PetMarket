@@ -6,6 +6,7 @@ import com.example.animalservice.dao.entity.AnimalImageEntity;
 import com.example.animalservice.dao.repository.AnimalImageRepository;
 import com.example.animalservice.dao.repository.AnimalRepository;
 import com.example.animalservice.dto.request.AnimalRequestDto;
+import com.example.animalservice.dto.request.AnimalUpdateDto;
 import com.example.animalservice.dto.event.NotificationEvent;
 import com.example.animalservice.dto.response.AnimalPageResponse;
 import com.example.animalservice.dto.response.AnimalResponseDto;
@@ -188,7 +189,7 @@ public class AnimalService {
         return Sort.by(direction, property);
     }
 
-    public AnimalResponseDto updateAnimal(UUID id, UUID userId, AnimalRequestDto dto) {
+    public AnimalResponseDto updateAnimal(UUID id, UUID userId, AnimalUpdateDto dto) {
         var animal = repository.findById(id).orElseThrow(
                 () -> new AnimalNotFoundException("Heyvan Tapilmadi")
         );
