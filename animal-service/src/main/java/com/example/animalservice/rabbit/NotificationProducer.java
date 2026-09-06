@@ -7,6 +7,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -17,9 +20,21 @@ public class NotificationProducer {
     @Value("${app.rabbit.exchange:pet-market-exchange}")
     private String exchange;
 
+    private static final Map<String, List<String>> CHANNEL_BY_EVENT = Map.of(
+            "ANIMAL_CREATED", List.of("email"),
+            "ANIMAL_PRICE_CHANGED", List.of("push")
+    );
+
     public void send(NotificationEvent event) {
-        String routingKey = "notification." + event.getEventType().toLowerCase();
-        log.debug("Publishing event [{}] to [{}]", routingKey, exchange);
-        rabbitTemplate.convertAndSend(exchange, routingKey, event);
+        List<String> channels = CHANNEL_BY_EVENT.getOrDefault(event.getEventType(), List.of());
+        if (channels.isEmpty()) {
+            log.warn("Kanal teyin olunmayib, event gonderilmedi: {}", event.getEventType());
+            return;
+        }
+        for (String channel : channels) {
+            String routingKey = "notification." + channel + "." + event.getEventType().toLowerCase();
+            log.debug("Publishing event [{}] to [{}]", routingKey, exchange);
+            rabbitTemplate.convertAndSend(exchange, routingKey, event);
+        }
     }
 }
