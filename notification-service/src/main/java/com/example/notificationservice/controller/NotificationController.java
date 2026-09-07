@@ -33,7 +33,9 @@ public class NotificationController {
         if (userId == null) {
             throw new LoginRequiredException();
         }
-        service.markAsRead(id);
+        if (!service.markAsRead(id, userId)) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().build();
     }
 }

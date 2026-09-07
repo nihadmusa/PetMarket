@@ -33,8 +33,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -144,6 +146,24 @@ public class AnimalService {
                 .toList();
     }
 
+    private void populateImages(List<AnimalResponseDto> content) {
+        if (content == null || content.isEmpty()) {
+            return;
+        }
+        List<UUID> animalIds = content.stream().map(AnimalResponseDto::getId).toList();
+        Map<UUID, List<String>> imagesByAnimal = imageRepository
+                .findAllByAnimalIdInOrderByPosition(animalIds)
+                .stream()
+                .collect(Collectors.groupingBy(
+                        AnimalImageEntity::getAnimalId,
+                        Collectors.mapping(
+                                img -> "/api/v1/animal/" + img.getAnimalId() + "/image/" + img.getId(),
+                                Collectors.toList()
+                        )
+                ));
+        content.forEach(dto -> dto.setImages(imagesByAnimal.getOrDefault(dto.getId(), List.of())));
+    }
+
     public AnimalPageResponse getAnimals(
             String type,
             String breed,
@@ -170,6 +190,8 @@ public class AnimalService {
         Pageable pageable = PageRequest.of(page, size, resolveSort(sortBy, sortDir));
         Page<AnimalResponseDto> result = repository.findAll(specification, pageable)
                 .map(mapper :: entityToDto);
+
+        populateImages(result.getContent());
 
         return AnimalPageResponse.builder()
                 .content(result.getContent())

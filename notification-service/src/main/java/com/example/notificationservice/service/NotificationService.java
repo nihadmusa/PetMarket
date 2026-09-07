@@ -4,7 +4,6 @@ import com.example.notificationservice.dto.NotificationEvent;
 import com.example.notificationservice.dao.entity.NotificationEntity;
 import com.example.notificationservice.dao.entity.NotificationType;
 import com.example.notificationservice.dao.repository.NotificationRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +37,14 @@ public class NotificationService {
     }
 
     @Transactional
-    public void markAsRead(UUID id) {
-        var entity = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Notification tapilmadi"));
-        entity.setRead(true);
-        repository.save(entity);
+    public boolean markAsRead(UUID id, UUID userId) {
+        return repository.findById(id)
+                .filter(n -> n.getUserId().equals(userId))
+                .map(n -> {
+                    n.setRead(true);
+                    repository.save(n);
+                    return true;
+                })
+                .orElse(false);
     }
 }
